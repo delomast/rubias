@@ -5,7 +5,7 @@
 \title{MCMC from the simplest GSI model for pi and the individual posterior probabilities}
 \usage{
 gsi_mcmc_1(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi,
-  sample_int_PofZ)
+  sample_int_PofZ, save_z)
 }
 \arguments{
 \item{SL}{matrix of the scaled likelihoods.  This is should have values for each individual in a column
@@ -25,6 +25,8 @@ returned in the traces if desired}
 
 \item{sample_int_PofZ}{the number of reps between samples being taken for the traces of posterior of each individual's origin. If 0
 no trace samples are taken.}
+
+\item{save_z}{TRUE to return a trace of Z values assigned to individuals in the mixture wiht the same frequency as the trace of Pi}
 }
 \value{
 \code{gsi_mcmc_1} returns a list of three. \code{$mean} lists the posterior

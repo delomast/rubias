@@ -144,8 +144,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // gsi_mcmc_1
-List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, int reps, int burn_in, int sample_int_Pi, int sample_int_PofZ);
-RcppExport SEXP _rubias_gsi_mcmc_1(SEXP SLSEXP, SEXP Pi_initSEXP, SEXP lambdaSEXP, SEXP repsSEXP, SEXP burn_inSEXP, SEXP sample_int_PiSEXP, SEXP sample_int_PofZSEXP) {
+List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, int reps, int burn_in, int sample_int_Pi, int sample_int_PofZ, bool save_z);
+RcppExport SEXP _rubias_gsi_mcmc_1(SEXP SLSEXP, SEXP Pi_initSEXP, SEXP lambdaSEXP, SEXP repsSEXP, SEXP burn_inSEXP, SEXP sample_int_PiSEXP, SEXP sample_int_PofZSEXP, SEXP save_zSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -156,7 +156,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type burn_in(burn_inSEXP);
     Rcpp::traits::input_parameter< int >::type sample_int_Pi(sample_int_PiSEXP);
     Rcpp::traits::input_parameter< int >::type sample_int_PofZ(sample_int_PofZSEXP);
-    rcpp_result_gen = Rcpp::wrap(gsi_mcmc_1(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ));
+    Rcpp::traits::input_parameter< bool >::type save_z(save_zSEXP);
+    rcpp_result_gen = Rcpp::wrap(gsi_mcmc_1(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -197,7 +198,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_rubias_gprob_sim_ind", (DL_FUNC) &_rubias_gprob_sim_ind, 2},
     {"_rubias_gprob_sim_gc_missing", (DL_FUNC) &_rubias_gprob_sim_gc_missing, 3},
     {"_rubias_gsi_em_1", (DL_FUNC) &_rubias_gsi_em_1, 5},
-    {"_rubias_gsi_mcmc_1", (DL_FUNC) &_rubias_gsi_mcmc_1, 7},
+    {"_rubias_gsi_mcmc_1", (DL_FUNC) &_rubias_gsi_mcmc_1, 8},
     {"_rubias_dirch_from_allocations", (DL_FUNC) &_rubias_dirch_from_allocations, 2},
     {"_rubias_dirch_from_counts", (DL_FUNC) &_rubias_dirch_from_counts, 2},
     {NULL, NULL, 0}

@@ -56,12 +56,14 @@
 #' as a Dirichlet vector of length C, with each element being W/C, where W is the pi_prior_sum
 #' and C is the number of collections. By default this is 1.  If it is made much smaller than 1, things
 #' could start to mix more poorly.
+#' @param save_z TRUE to save Z values of each individual for each sweep that Pi is sampled if the method is "MCMC"
 #' @return Tidy data frames in a list with the following components:
 #' mixing_proportions: the estimated mixing proportions of the different collections.
 #' indiv_posteriors: the posterior probs of fish being from each of the collections.
 #' mix_prop_traces: the traces of the mixing proportions.  Useful for computing credible intervals.
 #' bootstrapped_proportions: If using method "PB" this returns the bootstrap corrected
 #' reporting unit proportions.
+#' TraceOfZ: if save_z and method "MCMC", this has a trace of the z values for all individuals in the mixture.
 #'
 #' @examples
 #' mcmc <- infer_mixture(reference = small_chinook_ref,
@@ -84,7 +86,8 @@ infer_mixture <- function(reference,
                           prelim_burn_in = NULL,
                           sample_int_Pi = 1,
                           sample_theta = TRUE,
-                          pi_prior_sum = 1) {
+                          pi_prior_sum = 1,
+                          save_z = FALSE) {
 
 
   # check that prelim_reps and prelim_burn_in are appropriately set
@@ -396,7 +399,8 @@ infer_mixture <- function(reference,
                             reps = reps,
                             burn_in = burn_in,
                             sample_int_Pi = sample_int_Pi,
-                            sample_int_PofZ = sample_int_PofZ)
+                            sample_int_PofZ = sample_int_PofZ,
+                            save_z = save_z)
         })
       }
 
@@ -527,10 +531,20 @@ infer_mixture <- function(reference,
 
     # in the end, send back a list of these things
     if(method == "MCMC" || method == "PB") {
+      tempZout <- out$trace$z
+      if(save_z) {
+        names(tempZout[[1]]) <- MIXTURE_INDIV_TIBBLE$indiv
+        tempZout <- t(as.data.frame(tempZout))
+        rownames(tempZout) <- NULL
+        for(i in 1:ncol(tempZout)){
+          tempZout[,i] <- pull(COLLS_AND_REPS_TIBBLE_CHAR, collection)[as.numeric(tempZout[,i])]
+        }
+      }
       list(mixing_proportions = pi_tidy,
            indiv_posteriors = pofz_tidy,
            mix_prop_traces = traces_tidy,
-           bootstrapped_proportions = bootstrap_rhos)
+           bootstrapped_proportions = bootstrap_rhos,
+           trace_z = tempZout)
     } else {
       list(mixing_proportions = pi_tidy,
            indiv_posteriors = pofz_tidy,
@@ -569,6 +583,20 @@ infer_mixture <- function(reference,
   } else {
     names(ret)[4] <- "allele_frequencies"
   }
+
+  #making the trace of z values interpretable
+  if(method == "MCMC" && save_z) {
+    ret[[length(ret) + 1]] <- lapply(big_output_list, function(x) {
+      #changing trace of z values from list to matrix, rows are iterations, cols are individuals
+      traceList <- x$trace_z
+      # traceList <- t(as.data.frame(traceList))
+      # rownames(traceList) <- NULL
+      # need to change group integers to characters
+
+      return(traceList)
+    })
+    names(ret)[[length(ret)]] <- "TraceOfZ"
+  }
+
   ret
 }
-

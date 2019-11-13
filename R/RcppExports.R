@@ -337,6 +337,7 @@ gsi_em_1 <- function(SL, Pi_init, max_iterations, tolerance, return_progression)
 #' @param sample_int_Pi the number of reps between samples being taken for Pi traces.  If 0 no trace samples are taken
 #' @param sample_int_PofZ the number of reps between samples being taken for the traces of posterior of each individual's origin. If 0
 #' no trace samples are taken.
+#' @param save_z TRUE to return a trace of Z values assigned to individuals in the mixture wiht the same frequency as the trace of Pi
 #'
 #' @return \code{gsi_mcmc_1} returns a list of three. \code{$mean} lists the posterior
 #' means for collection proportions \code{pi} and for the individual posterior
@@ -361,8 +362,8 @@ gsi_em_1 <- function(SL, Pi_init, max_iterations, tolerance, return_progression)
 #' lambda <- rep(1/params$C, params$C)
 #' mcmc <- gsi_mcmc_1(SL, lambda, lambda, 200, 50, 5, 5)
 #' @export
-gsi_mcmc_1 <- function(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ) {
-    .Call('_rubias_gsi_mcmc_1', PACKAGE = 'rubias', SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ)
+gsi_mcmc_1 <- function(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z) {
+    .Call('_rubias_gsi_mcmc_1', PACKAGE = 'rubias', SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z)
 }
 
 #' Given a vector of different categories in 1...n and a prior,

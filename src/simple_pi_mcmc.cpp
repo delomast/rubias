@@ -19,6 +19,7 @@ using namespace Rcpp;
 //' @param sample_int_Pi the number of reps between samples being taken for Pi traces.  If 0 no trace samples are taken
 //' @param sample_int_PofZ the number of reps between samples being taken for the traces of posterior of each individual's origin. If 0
 //' no trace samples are taken.
+//' @param save_z TRUE to return a trace of Z values assigned to individuals in the mixture wiht the same frequency as the trace of Pi
 //'
 //' @return \code{gsi_mcmc_1} returns a list of three. \code{$mean} lists the posterior
 //' means for collection proportions \code{pi} and for the individual posterior
@@ -44,8 +45,9 @@ using namespace Rcpp;
 //' mcmc <- gsi_mcmc_1(SL, lambda, lambda, 200, 50, 5, 5)
 //' @export
 // [[Rcpp::export]]
-List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, int reps, int burn_in, int sample_int_Pi, int sample_int_PofZ) {
+List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, int reps, int burn_in, int sample_int_Pi, int sample_int_PofZ, bool save_z) {
   List pi_list;
+  List z_list;
   List PofZ_list;
   List trace, mean, sd, ret;
   NumericVector pi = clone(Pi_init);
@@ -55,6 +57,7 @@ List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, i
   NumericMatrix post_sums(SL.nrow(), SL.ncol());
   NumericMatrix post_sums_sq(SL.nrow(), SL.ncol());
   NumericMatrix sd_ret(SL.nrow(), SL.ncol());
+  IntegerVector z_values = samp_from_mat(posts);
 
   int R = SL.nrow();
   int C = SL.ncol();
@@ -68,6 +71,7 @@ List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, i
     // store pi value
     if( (sample_int_Pi > 0) && (i % sample_int_Pi == 0) ) {
       pi_list.push_back(pi);
+      if(save_z) z_list.push_back(z_values);
     }
     if(i >= burn_in) {
       pi_sums += pi;
@@ -96,13 +100,17 @@ List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, i
     }
 
     // allocate individuals to populations and simulate a new pi
-    pi = dirch_from_allocations(samp_from_mat(posts), lambda);
+
+    // TD edit: allow saving of Z values
+    z_values = samp_from_mat(posts);
+
+    pi = dirch_from_allocations(z_values, lambda);
 
   }
 
   // put the traces in there if there are any
-  trace = List::create(pi_list, PofZ_list);
-  trace.names() = CharacterVector::create("pi", "PofZ");
+  trace = List::create(pi_list, PofZ_list, z_list);
+  trace.names() = CharacterVector::create("pi", "PofZ", "z");
 
   // put the means and standard devs and traces in the return variable'
   post_sums = post_sums / num_samp;

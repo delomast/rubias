@@ -8,7 +8,7 @@ infer_mixture(reference, mixture, gen_start_col, method = "MCMC",
   alle_freq_prior = list(const_scaled = 1), pi_prior = NA,
   pi_init = NULL, reps = 2000, burn_in = 100, pb_iter = 100,
   prelim_reps = NULL, prelim_burn_in = NULL, sample_int_Pi = 1,
-  sample_theta = TRUE, pi_prior_sum = 1)
+  sample_theta = TRUE, pi_prior_sum = 1, save_z = FALSE)
 }
 \arguments{
 \item{reference}{a dataframe of two-column genetic format data, proceeded by "repunit", "collection",
@@ -69,6 +69,8 @@ of the updated allele frequences. Default is TRUE}
 as a Dirichlet vector of length C, with each element being W/C, where W is the pi_prior_sum
 and C is the number of collections. By default this is 1.  If it is made much smaller than 1, things
 could start to mix more poorly.}
+
+\item{save_z}{TRUE to save Z values of each individual for each sweep that Pi is sampled if the method is "MCMC"}
 }
 \value{
 Tidy data frames in a list with the following components:
@@ -77,6 +79,7 @@ indiv_posteriors: the posterior probs of fish being from each of the collections
 mix_prop_traces: the traces of the mixing proportions.  Useful for computing credible intervals.
 bootstrapped_proportions: If using method "PB" this returns the bootstrap corrected
 reporting unit proportions.
+TraceOfZ: if save_z and method "MCMC", this has a trace of the z values for all individuals in the mixture.
 }
 \description{
 Takes a mixture and reference dataframe of two-column genetic data, and a
