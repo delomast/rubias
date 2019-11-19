@@ -543,8 +543,9 @@ infer_mixture <- function(reference,
         names(tempZout[[1]]) <- MIXTURE_INDIV_TIBBLE$indiv
         tempZout <- t(as.data.frame(tempZout))
         rownames(tempZout) <- NULL
+        collectMatch <- pull(COLLS_AND_REPS_TIBBLE_CHAR, collection)
         for(i in 1:ncol(tempZout)){
-          tempZout[,i] <- pull(COLLS_AND_REPS_TIBBLE_CHAR, collection)[as.numeric(tempZout[,i])]
+          tempZout[,i] <- collectMatch[as.numeric(tempZout[,i])]
         }
       }
       list(mixing_proportions = pi_tidy,
@@ -594,13 +595,8 @@ infer_mixture <- function(reference,
   #making the trace of z values interpretable
   if(method == "MCMC" && save_z) {
     ret[[length(ret) + 1]] <- lapply(big_output_list, function(x) {
-      #changing trace of z values from list to matrix, rows are iterations, cols are individuals
-      traceList <- x$trace_z
-      # traceList <- t(as.data.frame(traceList))
-      # rownames(traceList) <- NULL
-      # need to change group integers to characters
-
-      return(traceList)
+      #saving trace of z's to output
+      return(dplyr::as_tibble(x$trace_z))
     })
     names(ret)[[length(ret)]] <- "TraceOfZ"
   }
