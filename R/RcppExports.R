@@ -362,7 +362,7 @@ gsi_em_1 <- function(SL, Pi_init, max_iterations, tolerance, return_progression)
 #' lambda <- rep(1/params$C, params$C)
 #' mcmc <- gsi_mcmc_1(SL, lambda, lambda, 200, 50, 5, 5)
 #' @export
-gsi_mcmc_1 <- function(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z) {
+gsi_mcmc_1 <- function(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z = FALSE) {
     .Call('_rubias_gsi_mcmc_1', PACKAGE = 'rubias', SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z)
 }
 

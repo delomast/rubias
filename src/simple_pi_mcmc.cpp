@@ -45,7 +45,7 @@ using namespace Rcpp;
 //' mcmc <- gsi_mcmc_1(SL, lambda, lambda, 200, 50, 5, 5)
 //' @export
 // [[Rcpp::export]]
-List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, int reps, int burn_in, int sample_int_Pi, int sample_int_PofZ, bool save_z) {
+List gsi_mcmc_1(NumericMatrix SL, NumericVector Pi_init, NumericVector lambda, int reps, int burn_in, int sample_int_Pi, int sample_int_PofZ, bool save_z = false) {
   List pi_list;
   List z_list;
   List PofZ_list;

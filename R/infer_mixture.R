@@ -218,6 +218,13 @@ infer_mixture <- function(reference,
     # fish into the params, and grabbing a few more necessary variables
     clean <- tcf2long(D, gen_start_col)
     rac <- reference_allele_counts(clean$long)
+
+    # some users forgot to switch missing genotypes in biallelec SNP inputs (coded as 0 or some other value) to NA
+    # so now a table is printed out, and user can quickly recognize if not all loci have 2 alleles
+    alleleCount <- rac %>% dplyr::group_by(locus) %>% dplyr::summarise(nAlleles = dplyr::n_distinct(allele))
+    cat("\nCount of loci by number of alleles\n")
+    print(table(alleleCount$nAlleles, useNA = "ifany"))
+
     ac <- a_freq_list(rac)
     coll_N <- rep(0, ncol(ac[[1]])) # the number of individuals in each population; not applicable for mixture samples
 
