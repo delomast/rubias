@@ -4,7 +4,8 @@
 \name{chinook}
 \alias{chinook}
 \title{SNP data from chinook reference populations}
-\format{A tbl_df-ed (from dplyr) data frame with 7,301 rows and 185 variables. The first
+\format{
+A tbl_df-ed (from dplyr) data frame with 7,301 rows and 185 variables. The first
 three columns are
 \describe{
   \item{repunit (chr)}{the reporting unit that the individual is in}
@@ -14,13 +15,14 @@ three columns are
 The remaining columns are two columns for each locus.  These columns are named like,
 "Locus.1" and "Locus.2" for the first and second gene copies at that locus.  For example,
 "Ots_104569-86.1" and  "Ots_104569-86.2".  The locus columns are ints and missing data
-is denoted by NA.}
+is denoted by NA.
+}
 \source{
-\url{http://datadryad.org/resource/doi:10.5061/dryad.574sv/1}
+\url{https://datadryad.org/stash/dataset/doi:10.5061/dryad.574sv}
 }
 \description{
 Chinook salmon baseline data similar to that which can be
-downloaded from \url{http://datadryad.org/resource/doi:10.5061/dryad.574sv/1}.
+downloaded from \url{https://datadryad.org/stash/dataset/doi:10.5061/dryad.574sv}.
 This data set includes 91 SNPs and 7301 fish and is what the Dryad data became
 after we converted from TaqMan to SNPtype assays (being forced to toss some loci)
 and tossed out a bunch of lousy historical

@@ -1,3 +1,16 @@
+# rubias 0.3.2
+
+## Changes
+
+* Corrected an underflow issues in the self_assign() function with
+many loci.
+* Edited the DOI address of the paper to be CRAN compliant.
+
+# rubias 0.3.1
+
+## Changes
+
+* Tiny tweak in one function to fix a breaking change in tibble 3.0.0.
 
 # rubias 0.3.0
 
