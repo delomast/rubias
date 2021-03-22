@@ -1,6 +1,6 @@
-Package: rubias
+Package: rubias_TD
 Type: Package
-Title: Bayesian Inference from the Conditional Genetic Stock Identification Model
+Title: Bayesian Inference from the Conditional Genetic Stock Identification Model - modified
 Version: 0.3.2
 Authors@R: c(
     person(given = c("Eric", "C."), family = "Anderson", email = "eric.anderson@noaa.gov", role = c("aut", "cre")),
@@ -12,6 +12,8 @@ Description: Implements Bayesian inference for the conditional genetic
     simulation of mixtures to predict accuracy.  A full description of the underlying
     methods is available in a recently published article in the
     Canadian Journal of Fisheries and Aquatic Sciences: <doi:10.1139/cjfas-2018-0016>.
+    This copy of the package is modified to return a trace of assignments for all individuals in the mixture
+    by passing save_z = TRUE to infer_mixture().
 License: CC0
 LazyData: TRUE
 Depends:
