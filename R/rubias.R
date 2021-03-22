@@ -36,12 +36,12 @@
 #' out.
 #'
 #' @docType package
-#' @name rubias
+#' @name rubiasTD
 #' @importFrom stats rbeta rmultinom var
 #' @importFrom utils write.table
 #' @importFrom Rcpp evalCpp
 #' @importFrom RcppParallel RcppParallelLibs
-#' @useDynLib rubias
+#' @useDynLib rubiasTD
 NULL
 
 

@@ -19,7 +19,8 @@ infer_mixture(
   prelim_burn_in = NULL,
   sample_int_Pi = 1,
   sample_theta = TRUE,
-  pi_prior_sum = 1
+  pi_prior_sum = 1,
+  save_z = FALSE
 )
 }
 \arguments{

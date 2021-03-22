@@ -13,7 +13,7 @@
 #' # gotta do something here too
 #' @export
 rcpp_close_matchers <- function(par_list, non_miss_fract, match_fract) {
-    .Call('_rubias_rcpp_close_matchers', PACKAGE = 'rubias', par_list, non_miss_fract, match_fract)
+    .Call('_rubiasTD_rcpp_close_matchers', PACKAGE = 'rubiasTD', par_list, non_miss_fract, match_fract)
 }
 
 #' MCMC from the fully Bayesian GSI model for pi and the individual posterior probabilities
@@ -59,7 +59,7 @@ rcpp_close_matchers <- function(par_list, non_miss_fract, match_fract) {
 #' mcmc <- gsi_mcmc_fb(params, lambda, lambda, 20, 5, 4, 4)
 #' @export
 gsi_mcmc_fb <- function(par_list, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ) {
-    .Call('_rubias_gsi_mcmc_fb', PACKAGE = 'rubias', par_list, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ)
+    .Call('_rubiasTD_gsi_mcmc_fb', PACKAGE = 'rubiasTD', par_list, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ)
 }
 
 #' Calculate a matrix of genotype log-likelihoods for a genetic dataset
@@ -84,7 +84,7 @@ gsi_mcmc_fb <- function(par_list, Pi_init, lambda, reps, burn_in, sample_int_Pi,
 #' ale_glL <- geno_logL(ale_par_list)
 #' @export
 geno_logL <- function(par_list) {
-    .Call('_rubias_geno_logL', PACKAGE = 'rubias', par_list)
+    .Call('_rubiasTD_geno_logL', PACKAGE = 'rubiasTD', par_list)
 }
 
 #' Calculate a matrix of sum-of-squares of genotype log-likelihoods for a genetic dataset
@@ -109,7 +109,7 @@ geno_logL <- function(par_list) {
 #' ale_glL <- geno_logL(ale_par_list)
 #' @export
 geno_logL_ssq <- function(par_list) {
-    .Call('_rubias_geno_logL_ssq', PACKAGE = 'rubias', par_list)
+    .Call('_rubiasTD_geno_logL_ssq', PACKAGE = 'rubiasTD', par_list)
 }
 
 #' From the pattern of missing data at each individual, compute the expected mean and variance of the logl
@@ -132,7 +132,7 @@ geno_logL_ssq <- function(par_list) {
 #'
 #' @export
 rcpp_indiv_specific_logl_means_and_vars <- function(par_list, MV) {
-    .Call('_rubias_rcpp_indiv_specific_logl_means_and_vars', PACKAGE = 'rubias', par_list, MV)
+    .Call('_rubiasTD_rcpp_indiv_specific_logl_means_and_vars', PACKAGE = 'rubiasTD', par_list, MV)
 }
 
 #' Return a matrix of locus-specific self-assignment logls
@@ -154,7 +154,7 @@ rcpp_indiv_specific_logl_means_and_vars <- function(par_list, MV) {
 #'
 #' @export
 rcpp_per_locus_logls <- function(par_list) {
-    .Call('_rubias_rcpp_per_locus_logls', PACKAGE = 'rubias', par_list)
+    .Call('_rubiasTD_rcpp_per_locus_logls', PACKAGE = 'rubiasTD', par_list)
 }
 
 #' Sample 1 observation from cell probabilities that are columns of a matrix
@@ -170,7 +170,7 @@ rcpp_per_locus_logls <- function(par_list) {
 #' the row that was chosen in that column's sampling
 #' @export
 samp_from_mat <- function(M) {
-    .Call('_rubias_samp_from_mat', PACKAGE = 'rubias', M)
+    .Call('_rubiasTD_samp_from_mat', PACKAGE = 'rubiasTD', M)
 }
 
 #' Simulate genotype log-likelihoods from a population by gene copy
@@ -201,7 +201,7 @@ samp_from_mat <- function(M) {
 #' ale_sim_gprobs_gc <- gprob_sim_gc(ale_par_list, sim_colls)
 #' @export
 gprob_sim_gc <- function(par_list, sim_colls) {
-    .Call('_rubias_gprob_sim_gc', PACKAGE = 'rubias', par_list, sim_colls)
+    .Call('_rubiasTD_gprob_sim_gc', PACKAGE = 'rubiasTD', par_list, sim_colls)
 }
 
 #' Simulate genotype log-likelihoods from a population by individual
@@ -233,7 +233,7 @@ gprob_sim_gc <- function(par_list, sim_colls) {
 #' ale_sim_gprobs_ind <- gprob_sim_ind(ale_par_list, sim_colls)
 #' @export
 gprob_sim_ind <- function(par_list, sim_colls) {
-    .Call('_rubias_gprob_sim_ind', PACKAGE = 'rubias', par_list, sim_colls)
+    .Call('_rubiasTD_gprob_sim_ind', PACKAGE = 'rubiasTD', par_list, sim_colls)
 }
 
 #' Simulate genotypes by gene copy, with missing data from chosen individuals
@@ -279,7 +279,7 @@ gprob_sim_ind <- function(par_list, sim_colls) {
 #' ale_sim_gprobs_miss <- gprob_sim_gc_missing(params, sim_colls, sim_miss)
 #' @export
 gprob_sim_gc_missing <- function(par_list, sim_colls, sim_missing) {
-    .Call('_rubias_gprob_sim_gc_missing', PACKAGE = 'rubias', par_list, sim_colls, sim_missing)
+    .Call('_rubiasTD_gprob_sim_gc_missing', PACKAGE = 'rubiasTD', par_list, sim_colls, sim_missing)
 }
 
 #' EM algorithm from the simplest GSI model for pi and the individual posterior probabilities
@@ -318,7 +318,7 @@ gprob_sim_gc_missing <- function(par_list, sim_colls, sim_missing) {
 #'                     return_progression = TRUE)
 #' @export
 gsi_em_1 <- function(SL, Pi_init, max_iterations, tolerance, return_progression) {
-    .Call('_rubias_gsi_em_1', PACKAGE = 'rubias', SL, Pi_init, max_iterations, tolerance, return_progression)
+    .Call('_rubiasTD_gsi_em_1', PACKAGE = 'rubiasTD', SL, Pi_init, max_iterations, tolerance, return_progression)
 }
 
 #' MCMC from the simplest GSI model for pi and the individual posterior probabilities
@@ -363,7 +363,7 @@ gsi_em_1 <- function(SL, Pi_init, max_iterations, tolerance, return_progression)
 #' mcmc <- gsi_mcmc_1(SL, lambda, lambda, 200, 50, 5, 5)
 #' @export
 gsi_mcmc_1 <- function(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z = FALSE) {
-    .Call('_rubias_gsi_mcmc_1', PACKAGE = 'rubias', SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z)
+    .Call('_rubiasTD_gsi_mcmc_1', PACKAGE = 'rubiasTD', SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ, save_z)
 }
 
 #' Given a vector of different categories in 1...n and a prior,
@@ -385,7 +385,7 @@ gsi_mcmc_1 <- function(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample
 #' @param lambda priors for the categories
 #' @export
 dirch_from_allocations <- function(C, lambda) {
-    .Call('_rubias_dirch_from_allocations', PACKAGE = 'rubias', C, lambda)
+    .Call('_rubiasTD_dirch_from_allocations', PACKAGE = 'rubiasTD', C, lambda)
 }
 
 #' Given a vector of counts for different categories in 1...n and a prior,
@@ -404,6 +404,6 @@ dirch_from_allocations <- function(C, lambda) {
 #' @param lambda priors for the categories
 #' @export
 dirch_from_counts <- function(C, lambda) {
-    .Call('_rubias_dirch_from_counts', PACKAGE = 'rubias', C, lambda)
+    .Call('_rubiasTD_dirch_from_counts', PACKAGE = 'rubiasTD', C, lambda)
 }
 

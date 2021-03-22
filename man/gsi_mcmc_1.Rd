@@ -4,7 +4,16 @@
 \alias{gsi_mcmc_1}
 \title{MCMC from the simplest GSI model for pi and the individual posterior probabilities}
 \usage{
-gsi_mcmc_1(SL, Pi_init, lambda, reps, burn_in, sample_int_Pi, sample_int_PofZ)
+gsi_mcmc_1(
+  SL,
+  Pi_init,
+  lambda,
+  reps,
+  burn_in,
+  sample_int_Pi,
+  sample_int_PofZ,
+  save_z = FALSE
+)
 }
 \arguments{
 \item{SL}{matrix of the scaled likelihoods.  This is should have values for each individual in a column
